@@ -1,3 +1,67 @@
-.card-temp {
-    background-color: yellow;
+
+#header{
+    display:block;
+    justify-self: center;
+    background-size: 20px;
+    background-position-x: right;
+    background-position-y: center;
+    background-color: cornflowerblue;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+.messageHeader{
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    display: block;
+    background-color: teal;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    margin-left: 25%; 
+}
+.newHead{
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    display: block;
+    background-color: cornflowerblue;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    margin-left: 25%;
+}
+body{
+    background-color: rgba(56, 185, 105, 0.534);
+    background-image: url('https://i.kym-cdn.com/photos/images/original/001/331/213/35a.jpg');
+    background-repeat: no-repeat;
+    background-size: 350px;
+    background-position-x: 200px;
+    background-position-y: 20px;
+    background-attachment: fixed;
+}
+
+.content{
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    display: block;
+    margin-bottom: 10px;   
+    background-color: grey;
+    font-family: 'Press Start 2P', cursive;
+    margin-left: 25%; 
+}
+.newContent{
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    display: block;
+    margin-bottom: 10px;
+    background-color: teal;
+    font-family: 'Press Start 2P', cursive;
+    margin-left: 25%; 
+}
+.newMessageContent{
+    display: none;
+}
+.messageContent{
+    display: none;
 }

@@ -1,126 +1,145 @@
 <html>
-<head>
-	<h1 id = "heading"></h1>
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<script src="js/mail-generator.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-	<link href="css/style.css" rel="stylesheet" media="screen">
-	<script>
-		window.onload = function(){
-			// ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE.
-			// We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
-			
-			var count = 0; //Count for inbox
-
-			//Asks the user for name that will be added to webpage:
-
-			var counter = 0; //Counter for inbox
-
-			//Paragraph for inbox box that shows the amount of mail that has been generated
-			var inbox = document.createElement("p");
-			inbox.className = "counter";
-			inbox.innerHTML = "Inbox: " + count;
-			main.appendChild(inbox);
-
-			//Creates div elements and puts in information from mail-generator
-			for(var i =0; i<geemails.length; i++){
-
-				createEmailBlock("dDate", geemails[i].date, main);
-
-				var sendDiv = createEmailBlock("card", geemails[i].sender, main);
-
-				var subjectDiv = createEmailBlock("card-header", geemails[i].subject, sendDiv);
-
-				var bodyDiv = createEmailBlock("card-body", geemails[i].body, sendDiv);
-				bodyDiv.style.display = "none";
-				count++;
-			}
-
-			inbox.innerHTML = "Inbox: " + count;
-
-			//Toggle Function for parent/child
-			var parentElem = document.getElementsByClassName("dSend");
-			for(var i = 0; i<parentElem.length; i++){
-
-				parentElem[i].addEventListener("click", showBody);
-			}
-			function showBody(){
-
-				var paraBody = this.querySelectorAll(".dBody")[0];
-
-				if(paraBody.style.display === "none"){
-
-					paraBody.style.display = "block";
-
-				}else{
-
-					paraBody.style.display = "none";
-				}
-			}
-
-
-
-			//SetInterval takes in function and iterates it 1 sec at a time
-			var myVar = setInterval(moreMessage,1000);
-			function moreMessage(){
-				console.log(getNewMessage());
-				var newMess = getNewMessage();
-
-				//Changes html element p with new inbox information
-				counter++;
-				var x = count + counter;
-				inbox.innerHTML = "Inbox: " + x;
-
-
-				createEmailBlock("dDate2", newMess.date, main);
-
-				var sendDiv = createEmailBlock("card", newMess.sender, main);
-
-				var subjectDiv = createEmailBlock("card-header", newMess.subject, sendDiv);
-
-				var bodyDiv = createEmailBlock("card-body", newMess.body, sendDiv);
-				bodyDiv.style.display = "none";
+	<head>
+		<script src="js/mail-generator.js"></script>
+		<link href="css/style.css" rel="stylesheet" media="screen">
+		<script>
+      window.onload = function(){
+		 // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+        // container for header
 				
-				//Toggle
-				var parentElem2 = document.getElementsByClassName("card");
+		let	inbox = window.geemails;
 
-				for(var i = 0; i < parentElem2.length; i++){
-
-					parentElem2[i].addEventListener("click", showBody2);
-
-				}
-				function showBody2(){
-
-					var paraBody2 = this.querySelectorAll(".card-body")[0];
-
-					if(paraBody2.style.display === "none"){
-
-						paraBody2.style.display = "block";
-
-					}else{
-
-						paraBody2.style.display = "none";
-
+				function showHide2(){
+					let newContentMessage = this.querySelectorAll('.newMessageContent')[0];
+					if (newContentMessage.style.display === 'block'){
+						newContentMessage.style.display = 'none';
+					} else {
+						newContentMessage.style.display = 'block';
 					}
 				}
+				
+				let intervalID = setInterval(newMessage, 400);
+								
+				function newMessage(){
+				let nuNuNews = getNewMessage();
+				newCount++
+				newBod = nuNuNews.body;
+				newSub = nuNuNews.subject
+				newDate = nuNuNews.date
+				newSend = nuNuNews.sender
+				
+				
+				let newMessageHeader = document.createElement('div');
+				newMessageHeader.className = 'newHead';
+				document.body.appendChild(newMessageHeader)
 
-			}
-			function createEmailBlock(cssClass, innerHtml, parentDiv) {
-				var div = document.createElement("div");
-				div.className = cssClass;
-				div.innerHTML = innerHtml;
-				parentDiv.appendChild(div);
-				return div
-			}
+				let newDateElem = document.createElement('div');
+				newDateElem.className = 'newDate';
+				newDateElem.innerHTML = 'Date: ' + newDate;
+				newMessageHeader.appendChild(newDateElem);
+
+				let newSendElem = document.createElement('div');
+				newSendElem.className = 'newSend';
+				newSendElem.innerHTML = 'From: ' + newSend;
+				newMessageHeader.appendChild(newSendElem);
+
+				let newSubElem = document.createElement('div');
+				newSubElem.className = 'newSub';
+				newSubElem.innerHTML = 'Subject: ' + newSub;
+				newMessageHeader.appendChild(newSubElem);
+				
+				let newContentButton = document.createElement('div');
+					newContentButton.className = 'newContent';
+					newContentButton.innerHTML = 'Show';
+					newContentButton.addEventListener('click', showHide2)
+					document.body.appendChild(newContentButton);
+
+					let newMessageElem = document.createElement('div');
+					newMessageElem.className = 'newMessageContent';
+					newContentButton.appendChild(newMessageElem);
+
+					let newBodyElem = document.createElement('div');
+					newBodyElem.className = 'newBody';
+					newBodyElem.innerHTML = 'Body: ' + newBod;
+					newMessageElem.appendChild(newBodyElem);
+
+					inboxCounter.innerHTML = 'Inbox: ' + newCount;
+					console.log(newCount)
+					stop();
+				}
+				
+				let pageTitle = document.createElement('title');
+				pageTitle.innerHTML = 'Gee-Mail';
+				document.body.appendChild(pageTitle)
+
+				let headerBox = document.createElement('h1');
+				headerBox.id = 'header';
+				headerBox.innerHTML = 'Knw D Waz';
+				document.body.appendChild(headerBox);		
+				
+				for (i=0;i<inbox.length;i++){
+					let message = inbox[i];
+					let messageSubj = message.subject;
+					let messageSender = message.sender;
+					let messageBody = message.body;
+					let messageDate = message.date;
+
+					let messageHeader = document.createElement('div');
+					messageHeader.className = 'messageHeader';
+					document.body.appendChild(messageHeader)
+					
+					let dateElem = document.createElement('div');
+					dateElem.className = 'date';
+					dateElem.innerHTML = 'Date: ' + messageDate;
+					messageHeader.appendChild(dateElem);
+
+					let senderElem = document.createElement('div');
+					senderElem.className = 'sender';
+					senderElem.innerHTML = 'From: ' + messageSender;
+					messageHeader.appendChild(senderElem)
+
+					let subjectElem = document.createElement('div');
+					subjectElem.className = 'subject';
+					subjectElem.innerHTML = 'Subject: ' + messageSubj;
+					messageHeader.appendChild(subjectElem)
+
+					let contentButton = document.createElement('div');
+					contentButton.className = 'content';
+					contentButton.innerHTML = 'Show';
+					document.body.appendChild(contentButton);
+
+					let messageElem = document.createElement('div');
+					messageElem.className = 'messageContent';
+					contentButton.appendChild(messageElem);
+
+					let bodyElem = document.createElement('div');
+					bodyElem.className = 'body';
+					bodyElem.innerHTML = 'Body: ' + messageBody;
+					messageElem.appendChild(bodyElem);
+				}
+					let contentButton = document.getElementsByClassName('content')
+					for(i=0;i<inbox.length;i++){
+					contentButton[i].addEventListener('click', showHide);
+					}
+
+				function showHide(){
+					let contentMessage = this.querySelectorAll('.messageContent')[0];
+					if (contentMessage.style.display === 'block'){
+						contentMessage.style.display = 'none';
+					} else {
+						contentMessage.style.display = 'block';
+					}
+				}
 			
-			
-
-		};
-	</script>
-</head>
-<body>
-<div class="container" id="main">
-
-</div>
-</body>
+				let newCount = inbox.length;
+				let inboxCounter = document.createElement('h4');
+					inboxCounter.innerHTML = 'inbox: ' + newCount;
+					headerBox.appendChild(inboxCounter)
+		
+			}
+		</script>
+	</head>
+	<body>
+	</body>
 </html>
